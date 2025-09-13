@@ -1,3 +1,0 @@
-@use '../../../functions/f-get-token' as token;
-
-$color-token-map: token.get(color); // Повертає  вкладену мапу color з $TOKENS

@@ -1,51 +1,69 @@
-✂️ Редагування коду
+# React + TypeScript + Vite
 
-Alt + W → Emmet: Wrap with Abbreviation
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Shift + Space → закоментувати/розкоментувати рядок
+Currently, two official plugins are available:
 
-💾 Збереження
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Shift + Alt + F → зберегти файл
+## Expanding the ESLint configuration
 
-⚙️ Налаштування
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-Ctrl + Alt + S → відкрити Settings
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-📝 Turbo Console Log
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
 
-Alt + S → згенерувати console.log для змінної
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-🛠️ Tasks
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-Alt + Q → Plop: Generate Component
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-Alt + F1 → Task: Dev Start Server
-
-Alt + F2 → Task: Dev Watch SCSS
-
-Alt + F3 → Task: Dev Build Project
-
-Alt + E → Tasks (меню запуску)
-
-💻 Термінали
-
-Alt + ` → показати / сховати термінал
-
-Alt + 1 → фокус на 1-й термінал
-
-Alt + 2 → фокус на 2-й термінал
-
-Alt + 3 → фокус на 3-й термінал
-
-Alt + 4 → фокус на 4-й термінал
-
-Alt + Z → новий термінал
-
-🚀 Поради
-
-Для терміналів можна ще додати хоткей на split (workbench.action.terminal.split).
-
-Для console.log можна завести шорткат на видалення всіх логів (Turbo Console Log → Delete All Log Messages).
-
-ð щось не працює — перевір у Ctrl+K Ctrl+S, чи немає конфлікту.
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
